@@ -3,21 +3,7 @@ from datacenter.models import Visit
 from django.shortcuts import render
 from django.utils.timezone import localtime
 import locale
-import datetime
-
-
-def get_duration(spent_time):
-    total_seconds = int(spent_time.total_seconds())
-    hours, remainder = divmod(total_seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
-    user_spent_time = datetime.timedelta(
-        hours=hours, minutes=minutes, seconds=seconds
-    )
-    return user_spent_time
-
-
-def format_duration(duration):
-    return f'{duration.seconds // 3600} час {(duration.seconds // 60) % 60} мин'
+from time_methods import get_duration, format_duration
 
 
 def storage_information_view(request):
