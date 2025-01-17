@@ -10,13 +10,12 @@ def is_visit_long(visit, minutes=60):
         return False
 
 def get_duration(spent_time):
+    if not isinstance(spent_time, timedelta):
+        raise ValueError("Input must be a timedelta object")
     total_seconds = int(spent_time.total_seconds())
     hours, remainder = divmod(total_seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
-    user_spent_time = datetime.timedelta(
-        hours=hours, minutes=minutes, seconds=seconds
-    )
-    return user_spent_time
+    return f"{hours:02}:{minutes:02}:{seconds:02}"
 
 
 def format_duration(duration):
