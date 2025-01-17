@@ -14,23 +14,12 @@ def storage_information_view(request):
     locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
 
     for visit in persons_not_leaved:
-        entered_time = localtime(visit.entered_at)
-        time_spent = current_time - entered_time
-        entered_time_str = entered_time.strftime('%d %B %Y г. %H:%M')
-
-        duration = get_duration(time_spent)
-        str_duration = format_duration(duration)
-
-        # Вывод сообщений
-        owner = visit.passcard
-        person = Passcard.objects.get(owner_name=owner)
-
-        current_closed_visit = {
-            'who_entered': person,
-            'entered_at': entered_time_str,
-            'duration': str_duration,
-        }
-        non_closed_visits.append(current_closed_visit)
+        et = localtime(visit.entered_at)
+        non_closed_visits.append({
+            'who_entered': Passcard.objects.get(owner_name=visit.passcard),
+            'entered_at': et.strftime('%d %B %Y г. %H:%M'),
+            'duration': format_duration(get_duration(current_time - et))
+        })
 
     context = {
         'non_closed_visits': non_closed_visits,  # не закрытые посещения
