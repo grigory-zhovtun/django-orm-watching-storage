@@ -19,4 +19,16 @@ def get_duration(spent_time):
 
 
 def format_duration(duration):
-    return f'{duration.seconds // 3600} час {(duration.seconds // 60) % 60} мин'
+    total_seconds = int(duration.total_seconds())
+    days, remainder = divmod(total_seconds, 86400)
+    hours, remainder = divmod(remainder, 3600)
+    minutes, seconds = divmod(remainder, 60)
+
+    result = []
+    if days > 0:
+        result.append(f"{days} дн")
+    if hours > 0 or days > 0:  # Если есть дни, то часы выводим всегда
+        result.append(f"{hours} час")
+    result.append(f"{minutes} мин")
+
+    return ' '.join(result)
