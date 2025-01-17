@@ -8,11 +8,7 @@ SECONDS_IN_MINUTE = 60
 
 def is_visit_long(visit, minutes=60):
     visit_duration = visit.leaved_at - visit.entered_at
-
-    if visit_duration > timedelta(minutes=minutes):
-        return True
-    else:
-        return False
+    return visit_duration > timedelta(minutes=minutes)
 
 
 def get_duration(spent_time):
