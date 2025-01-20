@@ -7,18 +7,18 @@ from time_methods import get_duration, format_duration
 
 
 def storage_information_view(request):
-    persons_not_leaved = Visit.objects.filter(leaved_at__isnull=True)
+    unclosed_visits = Visit.objects.filter(leaved_at__isnull=True)
     current_time = localtime()
 
     non_closed_visits = []
     locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
 
-    for visit in persons_not_leaved:
-        et = localtime(visit.entered_at)
+    for visit in unclosed_visits:
+        entered_time = localtime(visit.entered_at)
         non_closed_visits.append({
             'who_entered': Passcard.objects.get(owner_name=visit.passcard),
-            'entered_at': et.strftime('%d %B %Y г. %H:%M'),
-            'duration': format_duration(get_duration(current_time - et))
+            'entered_at': entered_time.strftime('%d %B %Y г. %H:%M'),
+            'duration': format_duration(get_duration(current_time - entered_time))
         })
 
     context = {
