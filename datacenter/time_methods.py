@@ -1,4 +1,5 @@
 from datetime import timedelta, datetime
+from datacenter.models import Visit
 
 
 SECONDS_IN_DAY = 86400
@@ -15,9 +16,19 @@ def is_visit_long(visit, minutes=60):
     return visit_duration > timedelta(minutes=minutes)
 
 
+def get_spent_time(obj):
+    if isinstance(obj, timedelta):
+        return obj
+    if isinstance(obj, Visit):
+        if obj.leaved_at is None:
+            return datetime.now() - obj.entered_at
+        else:
+            return obj.leaved_at - obj.entered_at
+    raise ValueError("Unsupported type.")
+
+
 def get_duration(spent_time):
-    if not isinstance(spent_time, timedelta):
-        raise ValueError("Input must be a timedelta object")
+    spent_time = get_spent_time(spent_time)
     total_seconds = int(spent_time.total_seconds())
     hours, remainder = divmod(total_seconds, SECONDS_IN_HOUR)
     minutes, seconds = divmod(remainder, SECONDS_IN_MINUTE)
