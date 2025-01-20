@@ -2,7 +2,6 @@ from datetime import timedelta, datetime
 from datacenter.models import Visit
 
 
-SECONDS_IN_DAY = 86400
 SECONDS_IN_HOUR = 3600
 SECONDS_IN_MINUTE = 60
 
@@ -37,15 +36,6 @@ def get_duration(spent_time):
 
 def format_duration(duration):
     total_seconds = int(duration.total_seconds())
-    days, remainder = divmod(total_seconds, SECONDS_IN_DAY)
-    hours, remainder = divmod(remainder, SECONDS_IN_HOUR)
+    hours, remainder = divmod(total_seconds, SECONDS_IN_HOUR)
     minutes, seconds = divmod(remainder, SECONDS_IN_MINUTE)
-
-    result = []
-    if days > 0:
-        result.append(f"{days} дн")
-    if hours > 0 or days > 0:  # Если есть дни, то часы выводим всегда
-        result.append(f"{hours} час")
-    result.append(f"{minutes} мин")
-
-    return ' '.join(result)
+    return f"{hours:02}:{minutes:02}:{seconds:02}"
