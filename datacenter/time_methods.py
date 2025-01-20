@@ -7,6 +7,10 @@ SECONDS_IN_MINUTE = 60
 
 
 def is_visit_long(visit, minutes=60):
+    if visit.leaved_at is None:
+        current_duration = datetime.now() - visit.entered_at
+        return current_duration > timedelta(minutes=minutes)
+
     visit_duration = visit.leaved_at - visit.entered_at
     return visit_duration > timedelta(minutes=minutes)
 
