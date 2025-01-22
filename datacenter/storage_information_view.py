@@ -3,7 +3,7 @@ from datacenter.models import Visit
 from django.shortcuts import render
 from django.utils.timezone import localtime
 import locale
-from time_methods import get_duration, format_duration
+from datacenter.time_methods import get_duration, format_duration
 
 
 def storage_information_view(request):
