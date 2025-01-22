@@ -7,7 +7,7 @@ SECONDS_IN_MINUTE = 60
 
 
 def is_visit_long(visit, minutes=60):
-    if visit.leaved_at is None:
+    if not visit.leaved_at:
         current_duration = datetime.now() - visit.entered_at
         return current_duration > timedelta(minutes=minutes)
 
@@ -19,7 +19,7 @@ def get_spent_time(obj):
     if isinstance(obj, timedelta):
         return obj
     if isinstance(obj, Visit):
-        if obj.leaved_at is None:
+        if not obj.leaved_at:
             return datetime.now() - obj.entered_at
         else:
             return obj.leaved_at - obj.entered_at
