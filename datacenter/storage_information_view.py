@@ -15,10 +15,11 @@ def storage_information_view(request):
 
     for visit in unclosed_visits:
         entered_time = localtime(visit.entered_at)
+        duration = current_time - entered_time
         non_closed_visits.append({
-            'who_entered': Passcard.objects.get(owner_name=visit.passcard),
+            'who_entered': visit.passcard.owner_name,  # или просто visit.passcard
             'entered_at': entered_time.strftime('%d %B %Y г. %H:%M'),
-            'duration': format_duration(get_duration(current_time - entered_time))
+            'duration': format_duration(duration),
         })
 
     context = {

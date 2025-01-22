@@ -26,12 +26,10 @@ def get_spent_time(obj):
     raise ValueError("Unsupported type.")
 
 
-def get_duration(spent_time):
-    spent_time = get_spent_time(spent_time)
-    total_seconds = int(spent_time.total_seconds())
-    hours, remainder = divmod(total_seconds, SECONDS_IN_HOUR)
-    minutes, seconds = divmod(remainder, SECONDS_IN_MINUTE)
-    return f"{hours:02}:{minutes:02}:{seconds:02}"
+def get_duration(visit):
+    if visit.leaved_at is None:
+        return datetime.now() - visit.entered_at
+    return visit.leaved_at - visit.entered_at
 
 
 def format_duration(duration):
