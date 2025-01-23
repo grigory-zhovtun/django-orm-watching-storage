@@ -27,7 +27,7 @@ def get_spent_time(obj):
 
 
 def get_duration(visit):
-    if visit.leaved_at is None:
+    if not visit.leaved_at:
         return datetime.now() - visit.entered_at
     return visit.leaved_at - visit.entered_at
 
