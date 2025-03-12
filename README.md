@@ -73,8 +73,8 @@ python manage.py runserver 0.0.0.0:8000
 The project requires the following environment variables to be set in a `.env` file:
 
 ```
-HOST_DB=checkpoint.devman.org
-PASSWORD_DB=osim5
+HOST_DB=<host_to_db>
+PASSWORD_DB=<password_to_db>
 SITE_SECRET_KEY=REPLACE_ME
 DEBUG=False
 ```
