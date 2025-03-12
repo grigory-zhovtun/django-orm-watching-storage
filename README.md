@@ -46,11 +46,11 @@ pip install -r requirements.txt
 
 ### 4. Configure the Database
 Ensure your PostgreSQL server is running and create a database with the following settings (or modify `settings.py` with your database credentials):
-- **Host:** `checkpoint.devman.org`
+- **Host:** `<host_to_db>`
 - **Port:** `5434`
 - **Database Name:** `checkpoint`
-- **User:** `guard`
-- **Password:** `osim5`
+- **User:** `<login>`
+- **Password:** `<password>`
 
 Update the `SECRET_KEY` in `settings.py`:
 ```python
@@ -68,6 +68,24 @@ Start the Django development server:
 ```bash
 python manage.py runserver 0.0.0.0:8000
 ```
+## Environment Variables
+
+The project requires the following environment variables to be set in a `.env` file:
+
+```
+HOST_DB=checkpoint.devman.org
+PASSWORD_DB=osim5
+SITE_SECRET_KEY=REPLACE_ME
+DEBUG=False
+```
+
+- `HOST_DB` – Database host.
+- `PASSWORD_DB` – Password for the database.
+- `SITE_SECRET_KEY` – Secret key for Django security settings (replace `REPLACE_ME` with a real secret key).
+- `DEBUG` – Set to `False` for production.
+
+Ensure that your `.env` file is properly configured before running the project.
+
 
 ---
 
@@ -78,17 +96,6 @@ python manage.py runserver 0.0.0.0:8000
   - **Active Passcards View:** `/` - Displays active passcards.
   - **Storage Information View:** `/storage_information` - Shows unclosed visits.
   - **Passcard Info View:** `/passcard_info/<uuid:passcode>` - Displays detailed information about visits for a specific pass.
-
----
-
-## Directory Structure
-
-- `main.py`: Entry point for running the application.
-- `requirements.txt`: Contains all Python package dependencies.
-- `project/settings.py`: Configuration file for the Django project.
-- `project/urls.py`: URL routing for the application.
-- `datacenter/models.py`: Defines database models for passcards and visits.
-- `datacenter/views/`: Contains views to handle different functionalities.
 
 ---
 
