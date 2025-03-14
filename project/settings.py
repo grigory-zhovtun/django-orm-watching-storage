@@ -4,9 +4,6 @@ from environs import Env
 env = Env()
 env.read_env()
 
-from dotenv import load_dotenv
-load_dotenv()
-
 
 DATABASES = {
     'default': {
