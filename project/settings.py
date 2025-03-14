@@ -9,9 +9,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': os.environ.get("HOST_DB"),
-        'PORT': '5434',
-        'NAME': 'checkpoint',
-        'USER': 'guard',
+        'PORT': os.environ.get("PORT_DB"),
+        'NAME': os.environ.get("NAME_DB"),
+        'USER': os.environ.get("USER_DB"),
         'PASSWORD': os.environ.get("PASSWORD_DB"),
     }
 }
